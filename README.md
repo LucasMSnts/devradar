@@ -1,7 +1,7 @@
 # DevRadar 🗺
 #### Projeto da semana OmniStack 10
 
-Projeto que marca no mapa os desenvolvedores que utilizam as linguagens pesquisadas, de um limite de 10KM.
+Projeto que disponibiliza no mapa os desenvolvedores que utilizam as linguagens pesquisadas em um raio de 10 Km
 
 ## Tecnologias
 
