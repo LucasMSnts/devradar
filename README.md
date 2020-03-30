@@ -6,7 +6,7 @@ Projeto que disponibiliza no mapa os desenvolvedores que utilizam as linguagens 
 ## Tecnologias
 
 Projeto desenvolvido com as seguintes tecnologias:
-- Node.js
-- React
-- React Native
-- Expo
+- [Node.js](https://nodejs.org/en/)
+- [React](https://pt-br.reactjs.org/)
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.io/)
