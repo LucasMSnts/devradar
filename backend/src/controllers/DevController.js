@@ -51,5 +51,19 @@ module.exports = {
         }        
     
         return response.json(dev);
+    },
+
+    async delete(request, response) {
+        const { github_username } = request.params;
+
+        let dev = await Dev.findOne({ github_username });
+
+        if(!dev) {
+            return response.status(401).json({ error: 'Dev not find!' });
+        }
+
+        await Dev.deleteOne({ github_username });
+
+        return response.status(204).send();
     }
 };
