@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -11,6 +11,7 @@ function Main({ navigation }) {
   const [devs, setDevs] = useState([]);
   const [currentRegion, SetCurrentRegion] = useState(null);
   const [techs, setTechs] = useState('');
+  const [keyboardShow, setKeyboardShow] = useState(false);
 
   useEffect(() => {
     async function loadInitialPosition() {
@@ -33,6 +34,8 @@ function Main({ navigation }) {
     }
 
     loadInitialPosition();
+    Keyboard.addListener('keyboardDidShow', () => setKeyboardShow(true));
+    Keyboard.addListener('keyboardDidHide', () => setKeyboardShow(false));
   }, []);
 
   useEffect(() => {
@@ -106,7 +109,7 @@ function Main({ navigation }) {
             </Marker>
         ))}
       </MapView>
-      <View style={styles.searchForm}>
+      <View style={[styles.searchForm, (keyboardShow ? styles.searchTop : styles.searchBottom)]}>
         <TextInput 
           style={styles.searchInput}
           placeholder="Buscar devs por techs..." 
@@ -158,11 +161,18 @@ const styles = StyleSheet.create({
 
     searchForm: {
         position: 'absolute',
-        top: 20, // botton
         left: 20,
         right: 20,
         zIndex: 5, // forçar para ficar em cima do mapa
         flexDirection: 'row',
+    },
+
+    searchTop: {
+        top: 20
+    },
+
+    searchBottom: {
+        bottom: 20
     },
 
     searchInput: {
