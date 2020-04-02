@@ -21,6 +21,26 @@ li.dev-item header .user-info {
     margin-left: 10px;
 }
 
+li.dev-item header .icons {
+    float: right;
+    margin-left: auto;
+}
+
+li.dev-item header .icons button {
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    background: transparent;
+    margin-left: 5px;
+    margin-top: 3px;
+    transition: border-color 0.2s;
+}
+
+li.dev-item header .icons button:hover {
+    border-color: #999;
+}
+
 .user-info strong {
     display: block;
     font-size: 16px;

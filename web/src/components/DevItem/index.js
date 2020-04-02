@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 import './styles.css';
 
@@ -10,6 +11,15 @@ function DevItem({ dev }) {
                 <div className="user-info">
                   <strong>{dev.name}</strong>
                   <span>{dev.techs.join(', ')}</span>
+                </div>
+                <div className="icons" >
+                    <button>
+                        <FiEdit size={16} color="#6931ca"/>
+                    </button>
+                    
+                    <button>
+                        <FiTrash2 size={16} color="#6931ca"/>
+                    </button>
                 </div>
             </header>
             <p>{dev.bio}</p>
