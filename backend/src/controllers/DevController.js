@@ -53,13 +53,49 @@ module.exports = {
         return response.json(dev);
     },
 
+    async update(request, response) {
+        const { github_username } = request.params;
+        const { techs, latitude, longitude, ...rest } = request.body;
+
+        const dev = await Dev.findOne({ github_username });
+
+        if(!dev) {
+            return response.status(404).json({ error: 'Dev not found!' });
+        }
+
+        rest.github_username = github_username;
+
+        if (latitude && longitude) {
+            var newLocation = {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+            }
+        }
+
+        if (techs) {
+            var techsArray = parseStringAsArray(techs);
+        }
+
+        const newDev = await Dev.updateOne({ github_username }, {
+            location: (latitude && longitude) ? newLocation : dev.location,
+            techs: techs ? techsArray : dev.techs,
+            ...rest,
+        });
+
+
+        return response.json({
+            modifiedCount: newDev.nModified,
+            ok: newDev.ok
+        });
+    },
+
     async delete(request, response) {
         const { github_username } = request.params;
 
         let dev = await Dev.findOne({ github_username });
 
         if(!dev) {
-            return response.status(401).json({ error: 'Dev not find!' });
+            return response.status(404).json({ error: 'Dev not found!' });
         }
 
         await Dev.deleteOne({ github_username });
