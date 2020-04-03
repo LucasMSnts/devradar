@@ -3,7 +3,20 @@ import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 import './styles.css';
 
-function DevItem({ dev }) {
+function DevItem({ dev, onEdit, onDelete }) {
+    const [{editMode, dev: oldDev}, setEditMode] = onEdit;
+
+    function editDev(){
+        setEditMode({editMode:
+                (oldDev._id !== dev._id) ? true : !editMode, // Se selecionou um Dev diferente, obrigatoriamente editMode deve ser true.
+                dev // Novo dev
+        });
+    }
+
+    function deleteDev(){
+        onDelete(dev.github_username);
+    }
+
     return (
         <li className="dev-item">
             <header>
@@ -13,11 +26,11 @@ function DevItem({ dev }) {
                   <span>{dev.techs.join(', ')}</span>
                 </div>
                 <div className="icons" >
-                    <button>
+                    <button onClick={editDev}>
                         <FiEdit size={16} color="#6931ca"/>
                     </button>
                     
-                    <button>
+                    <button onClick={deleteDev}>
                         <FiTrash2 size={16} color="#6931ca"/>
                     </button>
                 </div>
