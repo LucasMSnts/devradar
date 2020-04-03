@@ -53,6 +53,13 @@ module.exports = {
         return response.json(dev);
     },
 
+    async show(request, response) {
+        const { github_username } = request.params;
+        const dev = await Dev.findOne({ github_username });
+
+        return response.json(dev);
+    },
+
     async update(request, response) {
         const { github_username } = request.params;
         const { techs, latitude, longitude, ...rest } = request.body;
